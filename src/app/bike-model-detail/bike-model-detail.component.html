@@ -1,0 +1,76 @@
+<div *ngIf="bikemodel">
+  <h2>{{ bikemodel.name }} Details</h2>
+  <div>
+    <label for="bikemodel-name">Name: </label>
+    <input
+      type="text"
+      id="bikemodel-name"
+      [(ngModel)]="bikemodel.name"
+      placeholder="bikemodel name"
+      required
+    />
+    <label for="bikemodel-description">description: </label>
+    <input
+      id="bikemodel-description"
+      [(ngModel)]="bikemodel.description"
+      placeholder="bikemodel description"
+      required
+      type="text"
+    />
+    <label for="bikemodel-wheel_size">wheel_size: </label>
+    <input
+      id="bikemodel-wheel_size"
+      [(ngModel)]="bikemodel.wheel_size"
+      placeholder="bikemodel wheel_size"
+      required
+      type="number"
+    />
+    <label for="bikemodel-category">Category: </label>
+    <select [(ngModel)]="selectedValue">
+      <option *ngFor="let c of categorys" [ngValue]="c.bike_category_id">
+        {{ c.name }}
+      </option>
+    </select>
+  </div>
+  <div *ngIf="!isValidForm()" style="color: red">
+    Please fill out all fields correctly.
+  </div>
+  <button type="button" (click)="goBack()">go back</button>
+  <button type="button" (click)="save()">save</button>
+  <button type="button" (click)="delete()">delete</button>
+
+  <h2>Bike Model Features</h2>
+  <div class="container">
+    <label for="new-feature">Feature name: </label>
+    <input id="new-feature" #featureName />
+
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button
+      type="button"
+      class="add-button"
+      (click)="add(featureName.value); featureName.value = ''"
+    >
+      Add Feature
+    </button>
+  </div>
+  <ul class="features">
+    <li *ngFor="let feature of features">
+      <button
+        type="button"
+        class="delete"
+        title="delete feature"
+        (click)="deleteFeature(feature)"
+      >
+        x
+      </button>
+      {{ feature.name }}
+    </li>
+  </ul>
+
+  <h2>Bike Model Reviews</h2>
+  <li *ngFor="let bikemodelreview of bikemodelreviews">
+    <p>{{ bikemodelreview.name }}</p>
+    <p>Rating: {{ bikemodelreview.rating }}/5 Content:</p>
+    <p>{{ bikemodelreview.content }}</p>
+  </li>
+</div>

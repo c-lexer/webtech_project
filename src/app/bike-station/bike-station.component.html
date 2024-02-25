@@ -1,0 +1,10 @@
+<div class="container">
+  <ul>
+    <li *ngFor="let bikestation of bikestations">
+      <a routerLink="/bikestations/{{ bikestation.rental_station_id }}">
+        {{ bikestation.name }}
+      </a>
+    </li>
+    <button type="button" (click)="new()">New</button>
+  </ul>
+</div>

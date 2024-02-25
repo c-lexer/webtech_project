@@ -1,0 +1,27 @@
+<div class="container">
+  <label for="new-category">Category name: </label>
+  <input id="new-category" #categoryName />
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button
+    type="button"
+    class="add-button"
+    (click)="add(categoryName.value); categoryName.value = ''"
+  >
+    Add Category
+  </button>
+</div>
+
+<ul class="categorys">
+  <li *ngFor="let category of bikecategorys">
+    <button
+      type="button"
+      class="delete"
+      title="delete category"
+      (click)="delete(category)"
+    >
+      x
+    </button>
+    {{ category.name }}
+  </li>
+</ul>
