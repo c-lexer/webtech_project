@@ -40,46 +40,53 @@
   <button type="button" (click)="goBack()">go back</button>
   <button type="button" (click)="save()">save</button>
   <button type="button" (click)="delete()">delete</button>
-
-  <ul>
-    <h2>Bike Station Capacities</h2>
-    <li *ngFor="let bikestationcapacity of bikestationcapacities">
-      {{ bikestationcapacity.type }}: {{ bikestationcapacity.capacity }}
-    </li>
-  </ul>
-  <h2>Bike Parking Place</h2>
-  <div class="container">
-    <label for="bikemodel-category">Category: </label>
-    <select [(ngModel)]="selectedValue">
-      <option *ngFor="let c of bikecategorys" [ngValue]="c.bike_category_id">
-        {{ c.name }}
-      </option>
-    </select>
-
-    <!-- (click) passes input value to add() and then clears the input -->
-    <button type="button" class="add-button" (click)="add()">
-      Add Parking
-    </button>
+  <div *ngIf="isNew">
+    Create a new bike station before adding capacities, parking places and
+    reviews.
   </div>
-  <ul class="parking">
-    <li *ngFor="let bikeparkingplace of bikeparkingplaces">
-      <button
-        type="button"
-        class="delete"
-        title="delete parking"
-        (click)="deleteParking(bikeparkingplace)"
-      >
-        x
+  <div *ngIf="!isNew">
+    <ul>
+      <h2>Bike Station Capacities</h2>
+      <li *ngFor="let bikestationcapacity of bikestationcapacities">
+        {{ bikestationcapacity.type }}: {{ bikestationcapacity.taken }}/{{
+          bikestationcapacity.capacity
+        }}
+      </li>
+    </ul>
+    <h2>Bike Parking Place</h2>
+    <div class="container">
+      <label for="bikemodel-category">Category: </label>
+      <select [(ngModel)]="selectedValue">
+        <option *ngFor="let c of bikecategorys" [ngValue]="c.bike_category_id">
+          {{ c.name }}
+        </option>
+      </select>
+
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button type="button" class="add-button" (click)="add()">
+        Add Parking
       </button>
-      Type: {{ bikeparkingplace.name }}
-    </li>
-  </ul>
-  <ul>
-    <h2>Bike Station Reviews</h2>
-    <li *ngFor="let bikestationreview of bikestationreviews">
-      <p>{{ bikestationreview.name }}</p>
-      <p>Rating: {{ bikestationreview.rating }}/5 Content:</p>
-      <p>{{ bikestationreview.content }}</p>
-    </li>
-  </ul>
+    </div>
+    <ul class="parking">
+      <li *ngFor="let bikeparkingplace of bikeparkingplaces">
+        <button
+          type="button"
+          class="delete"
+          title="delete parking"
+          (click)="deleteParking(bikeparkingplace)"
+        >
+          x
+        </button>
+        Type: {{ bikeparkingplace.name }}
+      </li>
+    </ul>
+    <ul>
+      <h2>Bike Station Reviews</h2>
+      <li *ngFor="let bikestationreview of bikestationreviews">
+        <p>{{ bikestationreview.name }}</p>
+        <p>Rating: {{ bikestationreview.rating }}/5 Content:</p>
+        <p>{{ bikestationreview.content }}</p>
+      </li>
+    </ul>
+  </div>
 </div>

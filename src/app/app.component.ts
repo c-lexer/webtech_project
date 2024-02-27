@@ -16,15 +16,10 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
-
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
-
-      console.log(user.user);
       this.role = user.role;
-
       this.isAdmin = this.role.includes('admin');
-
       this.username = user.user;
     }
   }

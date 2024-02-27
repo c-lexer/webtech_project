@@ -25,6 +25,7 @@ export class BikeStationDetailComponent implements OnInit {
   bikecategorys: Bikecategory[] = [];
   isValid: boolean = true;
   selectedValue: number = 1;
+  isNew: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,6 +72,7 @@ export class BikeStationDetailComponent implements OnInit {
   getBikeStation(): void {
     if (this.route.snapshot.paramMap.get('id')!.includes('new')) {
       this.bikestation = new BikeStation();
+      this.isNew = true;
     } else {
       const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
 

@@ -1,0 +1,23 @@
+<div *ngIf="bike">
+  <h2>
+    {{ bike.bike_id }}: {{ bike.bike_model_name }} -
+    {{ bike.bike_category_name }} Details
+  </h2>
+  <div>
+    <label for="bikemodel">Model: </label>
+    <select [(ngModel)]="selectedModel">
+      <option *ngFor="let m of bikeModels" [ngValue]="m.bike_model_id">
+        {{ m.name }}
+      </option>
+    </select>
+    <label for="bikestation">Station: </label>
+    <select [(ngModel)]="selectedStation">
+      <option *ngFor="let s of bikeStations" [ngValue]="s.rental_station_id">
+        {{ s.name }}
+      </option>
+    </select>
+  </div>
+  <button type="button" (click)="goBack()">go back</button>
+  <button type="button" (click)="save()">save</button>
+  <button type="button" (click)="delete()">delete</button>
+</div>

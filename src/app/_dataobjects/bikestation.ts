@@ -22,4 +22,5 @@ export class BikeStationReview {
 export class BikeStationCapacity {
   public type: string = '';
   public capacity: number = 0;
+  public taken: number = 0;
 }

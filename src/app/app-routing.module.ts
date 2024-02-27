@@ -9,6 +9,8 @@ import { BikeModelComponent } from './bike-model/bike-model.component';
 import { BikemodelDetailComponent } from './bike-model-detail/bike-model-detail.component';
 import { LoginChecker } from './_helpers/loginChecker';
 import { BikecategoryComponent } from './bike-category/bike-category.component';
+import { BikeComponent } from './bike/bike.component';
+import { BikeDetailComponent } from './bike-detail/bike-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'bikemodels',
-    component: BikeModelComponent, 
+    component: BikeModelComponent,
     canActivate: [LoginChecker],
   },
   {
@@ -36,6 +38,16 @@ const routes: Routes = [
   {
     path: 'bikecategorys',
     component: BikecategoryComponent,
+    canActivate: [LoginChecker],
+  },
+  {
+    path: 'bikes',
+    component: BikeComponent,
+    canActivate: [LoginChecker],
+  },
+  {
+    path: 'bikes/:id',
+    component: BikeDetailComponent,
     canActivate: [LoginChecker],
   },
   { path: '**', component: LoginComponent },

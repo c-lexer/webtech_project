@@ -15,6 +15,8 @@ import { BikeStationDetailComponent } from './bike-station-detail/bike-station-d
 import { BikeModelComponent } from './bike-model/bike-model.component';
 import { BikemodelDetailComponent } from './bike-model-detail/bike-model-detail.component';
 import { BikecategoryComponent } from './bike-category/bike-category.component';
+import { BikeComponent } from './bike/bike.component';
+import { BikeDetailComponent } from './bike-detail/bike-detail.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { BikecategoryComponent } from './bike-category/bike-category.component';
     BikeModelComponent,
     BikemodelDetailComponent,
     BikecategoryComponent,
+    BikeComponent,
+    BikeDetailComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [httpInterceptorProviders, LoginChecker],
