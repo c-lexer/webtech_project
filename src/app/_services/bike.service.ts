@@ -32,9 +32,7 @@ export class BikeService {
   }
 
   updateBike(bike: Bike): Observable<any> {
-    return this.http
-      .put(this.bikesUrl, bike, this.httpOptions)
-      .pipe(catchError(this.handleError<any>('updateBike')));
+    return this.http.put(this.bikesUrl, bike, this.httpOptions);
   }
 
   deleteBike(id: number): Observable<any> {
@@ -45,9 +43,7 @@ export class BikeService {
   }
 
   postBike(bike: Bike): Observable<Bike> {
-    return this.http
-      .post<Bike>(this.bikesUrl, bike, this.httpOptions)
-      .pipe(catchError(this.handleError<Bike>('postBike')));
+    return this.http.post<Bike>(this.bikesUrl, bike, this.httpOptions);
   }
 
   /**

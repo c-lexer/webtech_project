@@ -8,6 +8,8 @@ import { Bikemodel } from '../_dataobjects/bikemodel';
 import { BikeStationService } from '../_services/bikestation.service';
 import { BikemodelService } from '../_services/bikemodel.service';
 import { ActivatedRoute } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-bike',
@@ -90,22 +92,38 @@ export class BikeDetailComponent implements OnInit {
     );
   }
 
-  add(model_id: number): void {
-    const bike = new Bike();
-    bike.bike_model_id = model_id;
-    this.bikeService.postBike(bike as Bike).subscribe(() => {
-      this.ngOnInit();
-    });
-  }
-
   save(): void {
     if (this.bike) {
       this.bike.bike_model_id = this.selectedModel;
       this.bike.rental_station_id = this.selectedStation;
-      this.bikeService.updateBike(this.bike).subscribe(() => {
-        this.goBack();
-      });
+      this.bike.bike_category_id = this.getCategory(this.selectedModel);
+      if (this.isNew) {
+        this.bikeService
+          .postBike(this.bike)
+          .pipe(catchError(this.handleError))
+          .subscribe(() => this.goBack());
+      } else {
+        this.bikeService
+          .updateBike(this.bike)
+          .pipe(catchError(this.handleError))
+          .subscribe(() => this.goBack());
+      }
     }
+  }
+
+  handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      window.alert('Response from server: ' + error.error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => {
+      new Error('Something bad happened; please try again later.');
+    });
   }
 
   goBack(): void {
