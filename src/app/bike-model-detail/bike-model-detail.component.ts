@@ -7,6 +7,7 @@ import { Bikecategory } from '../_dataobjects/bikecategorys';
 import { BikemodelService } from '../_services/bikemodel.service';
 import { BikecategoryService } from '../_services/bikecategory.service';
 import { BikeModelFeature } from '../_dataobjects/bikemodel';
+import { StorageService } from '../_services/storage.service';
 
 @Component({
   selector: 'app-bike-model-detail',
@@ -22,15 +23,19 @@ export class BikemodelDetailComponent implements OnInit {
   features: BikeModelFeature[] = [];
   isNew: boolean = false;
   modelId: number = 0;
+  isAdmin: boolean = false;
+  averageRating: number = 0;
 
   constructor(
     private route: ActivatedRoute,
     private bikemodelservice: BikemodelService,
     private bikecategoryService: BikecategoryService,
-    private location: Location
+    private location: Location,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.storageService.getUser().role === 'admin';
     if (this.route.snapshot.paramMap.get('id')!.includes('new')) {
       this.isNew = true;
     } else {
@@ -40,7 +45,6 @@ export class BikemodelDetailComponent implements OnInit {
     this.getCategorys();
     this.getBikemodelFeatures();
     if (this.bikemodel) {
-      console.log(this.bikemodel.bike_category_id);
       this.selectedValue = this.bikemodel.bike_category_id;
     }
   }
@@ -48,9 +52,10 @@ export class BikemodelDetailComponent implements OnInit {
   getBikemodelReviews(id: number): void {
     this.bikemodelservice
       .getBikeModelReviews(id)
-      .subscribe(
-        (bikemodelreview) => (this.bikemodelreviews = bikemodelreview)
-      );
+      .subscribe((bikemodelreview) => {
+        this.bikemodelreviews = bikemodelreview;
+        this.averageRating = this.getRating();
+      });
   }
 
   getBikemodel(): void {
@@ -80,7 +85,6 @@ export class BikemodelDetailComponent implements OnInit {
   save(): void {
     if (this.bikemodel?.bike_model_id === 0 && this.validateForm()) {
       this.bikemodel.bike_category_id = this.selectedValue;
-      console.log(this.bikemodel);
       this.bikemodelservice
         .postBikeModel(this.bikemodel)
         .subscribe(() => this.goBack());
@@ -150,8 +154,20 @@ export class BikemodelDetailComponent implements OnInit {
     this.bikemodelservice
       .postBikeFeature(feature, this.modelId)
       .subscribe((feature: BikeModelFeature) => {
-        console.log(feature);
         this.features.push(feature);
       });
+  }
+
+  getRating(): number {
+    if (this.bikemodelreviews.length === 0) {
+      return 0;
+    }
+    let length = this.bikemodelreviews.length;
+    let sum = 0;
+    for (var i = 0; i < length; i++) {
+      sum += +this.bikemodelreviews[i].rating;
+    }
+
+    return sum / length;
   }
 }

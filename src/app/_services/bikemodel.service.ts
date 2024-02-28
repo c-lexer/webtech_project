@@ -37,7 +37,6 @@ export class BikemodelService {
 
   getBikeModelReviews(id: number): Observable<BikeModelReview[]> {
     const url = `${this.bikemodelsUrl}/${id}/reviews`;
-    console.log(url);
     return this.http
       .get<BikeModelReview[]>(url)
       .pipe(
@@ -66,7 +65,6 @@ export class BikemodelService {
 
   getBikeModelFeatures(id: number): Observable<BikeModelFeature[]> {
     const url = `${this.bikemodelsUrl}/${id}/features`;
-    console.log(url);
     return this.http
       .get<BikeModelFeature[]>(url)
       .pipe(

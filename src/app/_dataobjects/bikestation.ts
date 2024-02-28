@@ -10,13 +10,14 @@ export class BikeParkingPlace {
   public parking_place_id: number = 0;
   public rental_station_id: number = 0;
   public bike_category_id: number = 0;
-  public name: string = ''; //name of parking place type
+  public rented: boolean = false;
+  public bike_id: number = 0;
 }
 
 export class BikeStationReview {
   public rental_station_customer_review_id: number = 0;
   public content: string = '';
-  public rating: string = '';
+  public rating: number = 0;
   public name: string = '';
 }
 export class BikeStationCapacity {

@@ -17,6 +17,10 @@ import { BikemodelDetailComponent } from './bike-model-detail/bike-model-detail.
 import { BikecategoryComponent } from './bike-category/bike-category.component';
 import { BikeComponent } from './bike/bike.component';
 import { BikeDetailComponent } from './bike-detail/bike-detail.component';
+import { RegisterComponent } from './register/register.component';
+import { UserBrowseComponent } from './user-browse/user-browse.component';
+import { UserBrowseDetailComponent } from './user-browse-detail/user-browse-detail.component';
+import { UserBookingComponent } from './user-booking/user-booking.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +34,10 @@ import { BikeDetailComponent } from './bike-detail/bike-detail.component';
     BikecategoryComponent,
     BikeComponent,
     BikeDetailComponent,
+    RegisterComponent,
+    UserBrowseComponent,
+    UserBrowseDetailComponent,
+    UserBookingComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [httpInterceptorProviders, LoginChecker],

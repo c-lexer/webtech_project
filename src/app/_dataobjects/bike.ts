@@ -6,4 +6,5 @@ export class Bike {
   public rental_station_id: number = 0;
   public bike_category_name: string = '';
   public bike_category_id: number = 0;
+  public rented_by: number = 0;
 }
